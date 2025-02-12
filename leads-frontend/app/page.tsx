@@ -1,6 +1,6 @@
 import LeadsTable from "./components/leads-table";
 import LeadsPagination from "./components/leads-pagination";
-import AddLead from "./components/add-lead";
+import AddLeadButton from "./components/add-lead-button";
 import SearchInput from "./components/search-input";
 import SortButton from "./components/sort-button";
 import { listLeadsLeadsListGet } from "../api-client/sdk.gen";
@@ -15,7 +15,7 @@ export default async function Home() {
       <Group justify="space-between">
         <Title >Leads</Title>
         <Group>
-          <AddLead/>
+          <AddLeadButton/>
           <Button leftSection={<IconCircleArrowDown size={16} />}>
             Export All
           </Button>
