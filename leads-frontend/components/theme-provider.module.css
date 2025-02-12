@@ -1,0 +1,15 @@
+.responsiveContainer {
+  max-width: 300px;
+
+  @media (min-width: 768px) { /* iPad */
+    max-width: 768px;
+  }
+
+  @media (min-width: 1024px) { /* 16-inch MacBook Pro */
+    max-width: 1024px;
+  }
+
+  @media (min-width: 1440px) { /* 27-inch screen */
+    max-width: 1440px;
+  }
+}
