@@ -6,9 +6,11 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "generate-client": "openapi-ts"
   },
   "dependencies": {
+    "@hey-api/client-fetch": "^0.8.1",
     "@mantine/core": "^7.16.3",
     "@mantine/form": "^7.16.3",
     "@mantine/hooks": "^7.16.3",
@@ -19,6 +21,7 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
+    "@hey-api/openapi-ts": "^0.64.3",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
