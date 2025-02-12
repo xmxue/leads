@@ -1,10 +1,11 @@
 'use client';
 
 
-import { Table, ActionIcon, Avatar, Group, Stack, Text, Badge} from '@mantine/core';
-import { IconDotsVertical, IconClockHour4, IconCircleCheck } from '@tabler/icons-react';
+import { Table, Avatar, Group, Stack, Text, Badge} from '@mantine/core';
+import { IconClockHour4, IconCircleCheck } from '@tabler/icons-react';
 import StageIndicator from './stage-indicator';
 import { Lead } from '../../api-client/types.gen';
+import EditLeadButton from './edit-lead-button';
 
 
 export default function LeadsTable ({ leads }: { leads: Lead[] }) {
@@ -46,9 +47,7 @@ export default function LeadsTable ({ leads }: { leads: Lead[] }) {
               </Table.Td>
               <Table.Td>{lead.last_contacted}</Table.Td>
               <Table.Td>
-              <ActionIcon variant="transparent" color="gray" aria-label="Settings">
-                <IconDotsVertical style={{ width: '70%', height: '70%' }}/>
-              </ActionIcon>
+                <EditLeadButton/>
               </Table.Td>
             </Table.Tr>
           ))}
