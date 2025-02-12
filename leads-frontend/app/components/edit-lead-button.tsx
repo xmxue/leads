@@ -4,22 +4,34 @@ import { IconDotsVertical, IconEdit, IconTrash } from '@tabler/icons-react';
 import { useDisclosure } from '@mantine/hooks';
 import { useForm } from '@mantine/form';
 import { DateInput } from '@mantine/dates';
+import { deleteLead } from '../actions/delete-lead';
+import { updateLead } from '../actions/update-lead';
+import { useState } from 'react';
 
-export default function EditLeadButton() {
+export default function EditLeadButton({leadId, stage, engaged, last_contacted}: {leadId: number, stage: number, engaged: boolean, last_contacted: Date}) {
   const [deleteModalOpened, { open: openDeleteModal, close: closeDeleteModal }] = useDisclosure(false);
   const [updateModalOpened, { open: openUpdateModal, close: closeUpdateModal }] = useDisclosure(false);
+  const [engagedValue, setEngagedValue] = useState(engaged ? 'Yes' : 'No');
   const form = useForm({
     mode: 'controlled',
-    initialValues: { stage: 0, engaged: 'No', last_contacted: new Date() },
+    initialValues: { stage: stage, engaged: engaged, last_contacted: last_contacted },
   });
-  
+
+  const handleDelete = () => {
+    deleteLead(leadId);
+    closeDeleteModal();
+  }
+
+  const handleUpdate = () => {
+    updateLead(leadId, form.values);
+    closeUpdateModal();
+    form.reset();
+  }
+
   return (
     <>
       <Modal opened={updateModalOpened} onClose={closeUpdateModal} title="Update Lead">
-        <form onSubmit={form.onSubmit(() => {
-          closeUpdateModal();
-          form.reset();
-        })}>
+        <form onSubmit={handleUpdate}>
           <NumberInput
             {...form.getInputProps('stage')}
             mt="xs"
@@ -34,7 +46,11 @@ export default function EditLeadButton() {
             mt="xs"
             label="Engaged"
             data={['Yes', 'No']}
-            defaultValue={'No'}
+            value={engagedValue}
+            onChange={(value) => {
+              setEngagedValue(value ?? 'No');
+              form.setFieldValue('engaged', value === 'Yes');
+            }}
             allowDeselect={false}
           />
           <DateInput 
@@ -59,7 +75,7 @@ export default function EditLeadButton() {
           <Button onClick={closeDeleteModal} variant="light">
             Cancel
           </Button>
-          <Button onClick={closeDeleteModal} variant="filled">
+          <Button onClick={handleDelete} variant="filled">
             Confirm
           </Button>
         </Group>

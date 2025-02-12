@@ -1,14 +1,13 @@
 'use client';
 
-
 import { Table, Avatar, Group, Stack, Text, Badge} from '@mantine/core';
 import { IconClockHour4, IconCircleCheck } from '@tabler/icons-react';
 import StageIndicator from './stage-indicator';
-import { Lead } from '../../api-client/types.gen';
+import { LeadInfo } from '../../api-client/types.gen';
 import EditLeadButton from './edit-lead-button';
 
 
-export default function LeadsTable ({ leads }: { leads: Lead[] }) {
+export default function LeadsTable ({ leads }: { leads: LeadInfo[] }) {
   return (
     <>
       <Table withTableBorder>
@@ -36,7 +35,7 @@ export default function LeadsTable ({ leads }: { leads: Lead[] }) {
               </Table.Td>
               <Table.Td>{lead.company}</Table.Td>
               <Table.Td>
-                <StageIndicator stage={lead.stage!} />
+                <StageIndicator stage={lead.stage} />
               </Table.Td>
               <Table.Td>
                 {
@@ -47,7 +46,12 @@ export default function LeadsTable ({ leads }: { leads: Lead[] }) {
               </Table.Td>
               <Table.Td>{lead.last_contacted}</Table.Td>
               <Table.Td>
-                <EditLeadButton/>
+              <EditLeadButton 
+                leadId={lead.id} 
+                stage={lead.stage} 
+                engaged={lead.engaged} 
+                last_contacted={new Date(lead.last_contacted)}
+              />
               </Table.Td>
             </Table.Tr>
           ))}

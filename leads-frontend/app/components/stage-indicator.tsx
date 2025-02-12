@@ -11,7 +11,7 @@ export default function StageIndicator({ stage }: StageIndicatorProps) {
     <Group align="center" gap={3}>
       {[1, 2, 3].map((level) => (
         <Box
-          key={level}
+          key={`${level}${stage}`}
           style={(theme) => ({
             width: "5px",
             height: "20px",
