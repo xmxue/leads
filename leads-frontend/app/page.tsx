@@ -3,13 +3,14 @@ import LeadsPagination from "./components/leads-pagination";
 import AddLeadButton from "./components/add-lead-button";
 import SearchInput from "./components/search-input";
 import SortButton from "./components/sort-button";
-import { listLeadsLeadsListGet } from "../api-client/sdk.gen";
+import { listLeadsLeadsGet } from "@/api-client";
 import { Stack, Group, Button, Title, Text } from '@mantine/core';
 import { IconCircleArrowDown } from '@tabler/icons-react';
 
 export default async function Home() {
-  const results = await listLeadsLeadsListGet();
-  const leads = results.data?.leads || [];
+  const { data } = await listLeadsLeadsGet() ?? [];
+  const leads = data ?? [];
+  
   return (
     <Stack>
       <Group justify="space-between">
