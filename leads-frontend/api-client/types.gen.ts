@@ -26,6 +26,11 @@ export type LeadUpdateInfo = {
     last_contacted: string;
 };
 
+export type ListLeadsResponse = {
+    leads: Array<LeadInfo>;
+    total_count: number;
+};
+
 export type ValidationError = {
     loc: Array<string | number>;
     msg: string;
@@ -50,6 +55,8 @@ export type ListLeadsLeadsGetData = {
     body?: never;
     path?: never;
     query?: {
+        page?: number;
+        page_size?: number;
         search?: string;
         sort_by?: 'stage';
         sort_order?: 'asc' | 'desc';
@@ -72,7 +79,7 @@ export type ListLeadsLeadsGetResponses = {
     /**
      * Successful Response
      */
-    200: Array<LeadInfo>;
+    200: ListLeadsResponse;
 };
 
 export type ListLeadsLeadsGetResponse = ListLeadsLeadsGetResponses[keyof ListLeadsLeadsGetResponses];

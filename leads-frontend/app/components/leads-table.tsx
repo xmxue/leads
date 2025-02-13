@@ -7,11 +7,11 @@ import { LeadInfo } from '../../api-client/types.gen';
 import EditLeadButton from './edit-lead-button';
 
 
-export default function LeadsTable ({ leads }: { leads: LeadInfo[] }) {
+export default function LeadsTable ({ leads, total_count }: { leads: LeadInfo[], total_count: number }) {
   return (
     <Stack gap="xs">
       <Text c="dimmed" size="xs">
-        Showing 1-10 of {leads.length} leads
+        Showing 1-10 of {total_count} leads
       </Text>
       <Table withTableBorder>
         <Table.Thead>

@@ -1,7 +1,7 @@
 from datetime import date
 from fastapi import APIRouter, Query
 from pydantic import BaseModel
-from sqlmodel import Session, select, desc, col, or_
+from sqlmodel import Session, select, desc, col, or_, func
 from app.db import engine, Lead
 
 router = APIRouter()
@@ -15,23 +15,34 @@ class LeadInfo(BaseModel):
     engaged: bool
     last_contacted: date
 
+class ListLeadsResponse(BaseModel):
+    leads: list[LeadInfo]
+    total_count: int
 
 @router.get("/")
 async def list_leads(
+    page: int = Query(1, ge=1),
+    page_size: int = Query(10, le=100),
     search: str = Query(None),
     sort_by: str = Query(None, enum=["stage"]),
     sort_order: str = Query(None, enum=["asc", "desc"]),
     secondary_sort_by: str = Query(None, enum=["last_contacted"]),
     secondary_sort_order: str = Query(None, enum=["asc", "desc"]),
-) -> list[LeadInfo]:
+) -> ListLeadsResponse:
     with Session(engine) as session:
         query = select(Lead)
         if search:
-            query = select(Lead).where(or_(
+            query = query.where(or_(
                 col(Lead.company).contains(search),
                 col(Lead.email).contains(search),
                 col(Lead.name).contains(search),
             ))
+
+        total_count = session.scalar(select(func.count()).select_from(query.subquery()))
+        if not total_count:
+            raise ValueError("Could not fetch leads")
+        offset = (page - 1) * page_size
+        query = query.offset(offset).limit(page_size)
 
         if sort_by:
             if sort_order == "asc":
@@ -48,7 +59,9 @@ async def list_leads(
         data = session.exec(query.order_by(desc(Lead.created_at))).all()
 
 
-    return [LeadInfo(id=lead.id, name=lead.name, email=lead.email, company=lead.company, stage=lead.stage, engaged=lead.engaged, last_contacted=lead.last_contacted) for lead in data]
+    leads = [LeadInfo(id=lead.id, name=lead.name, email=lead.email, company=lead.company, stage=lead.stage, engaged=lead.engaged, last_contacted=lead.last_contacted) for lead in data]
+
+    return ListLeadsResponse(leads=leads, total_count=total_count)
 
 class LeadCreateInfo(BaseModel):
     name: str
