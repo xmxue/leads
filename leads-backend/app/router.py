@@ -1,7 +1,7 @@
 from datetime import date
 from fastapi import APIRouter, Query
 from pydantic import BaseModel
-from sqlmodel import Session, select, desc
+from sqlmodel import Session, select, desc, col, or_
 from app.db import engine, Lead
 
 router = APIRouter()
@@ -18,6 +18,7 @@ class LeadInfo(BaseModel):
 
 @router.get("/")
 async def list_leads(
+    search: str = Query(None),
     sort_by: str = Query(None, enum=["stage"]),
     sort_order: str = Query(None, enum=["asc", "desc"]),
     secondary_sort_by: str = Query(None, enum=["last_contacted"]),
@@ -25,6 +26,13 @@ async def list_leads(
 ) -> list[LeadInfo]:
     with Session(engine) as session:
         query = select(Lead)
+        if search:
+            query = select(Lead).where(or_(
+                col(Lead.company).contains(search),
+                col(Lead.email).contains(search),
+                col(Lead.name).contains(search),
+            ))
+
         if sort_by:
             if sort_order == "asc":
               query = query.order_by(getattr(Lead, sort_by))
