@@ -6,8 +6,10 @@ import { IconPlus } from '@tabler/icons-react';
 import { useDisclosure } from '@mantine/hooks';
 import { hasLength, isEmail, useForm } from '@mantine/form';
 import { addLead } from '../actions/add-lead';
+import { usePathname } from "next/navigation";
 
 export default function AddLeadButton() {
+  const pathname = usePathname();
   const [opened, { open, close }] = useDisclosure(false);
   const form = useForm({
     mode: 'controlled',
@@ -23,7 +25,7 @@ export default function AddLeadButton() {
       <Modal opened={opened} onClose={close} title="New Lead">
         <form onSubmit={form.onSubmit((values) => {
           close();
-          addLead(values);
+          addLead(pathname, values);
           form.reset();
         })}>
           <TextInput {...form.getInputProps('name')} label="Name" placeholder="Name" />

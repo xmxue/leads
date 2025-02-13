@@ -1,5 +1,3 @@
-"use client";
-
 import { Group, Box } from "@mantine/core";
 
 interface StageIndicatorProps {

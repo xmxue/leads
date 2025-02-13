@@ -3,7 +3,7 @@ import { createLeadLeadsPost } from "@/api-client/sdk.gen";
 import { revalidatePath } from "next/cache";
 import { z } from 'zod';
 
-export async function addLead(formData: unknown) {
+export async function addLead(path: string, formData: unknown) {
   console.log('formData', formData); 
 
   const LeadSchema = z.object({
@@ -28,5 +28,5 @@ export async function addLead(formData: unknown) {
     }
   });
 
-  revalidatePath('/');
+  revalidatePath(path);
 }
