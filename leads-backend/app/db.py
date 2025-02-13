@@ -13,8 +13,8 @@ class Lead(SQLModel, table=True):
     stage: int = Field(default=0, nullable=False)
     engaged: bool = Field(default=False)
     last_contacted: date = Field(default_factory=lambda: date.today())
-    created_at: str = Field(default_factory=lambda: datetime.now())
-    updated_at: str = Field(default_factory=lambda: datetime.now())
+    created_at: datetime = Field(default_factory=lambda: datetime.now())
+    updated_at: datetime = Field(default_factory=lambda: datetime.now())
 
 
 db_url = "postgresql://postgres:password@localhost:5432/postgres"
