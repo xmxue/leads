@@ -8,20 +8,20 @@ import { IconCircleArrowDown } from '@tabler/icons-react';
 import SortButton from "./components/sort-button";
 
 interface HomeProps {
+  search: string | undefined;
   sort_order: string | undefined;
   secondary_sort_order: string | undefined;
 }
 
 export default async function Home({ searchParams }: { searchParams: HomeProps }) {
-  const { sort_order, secondary_sort_order } = await searchParams;
+  const { search, sort_order, secondary_sort_order } = await searchParams;
   const sort_by = sort_order !== undefined ? "stage" : undefined;
   const secondary_sort_by = secondary_sort_order !== undefined ? "last_contacted" : undefined;
 
-  console.log(sort_order, secondary_sort_order);
-  console.log(sort_by, secondary_sort_by);
   const { data } =
     (await listLeadsLeadsGet({
       query: {
+        search: search,
         sort_by: sort_by,
         sort_order: sort_order as "desc" | "asc" | undefined,
         secondary_sort_by: secondary_sort_by,

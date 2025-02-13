@@ -50,6 +50,7 @@ export type ListLeadsLeadsGetData = {
     body?: never;
     path?: never;
     query?: {
+        search?: string;
         sort_by?: 'stage';
         sort_order?: 'asc' | 'desc';
         secondary_sort_by?: 'last_contacted';
