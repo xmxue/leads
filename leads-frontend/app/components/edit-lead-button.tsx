@@ -7,8 +7,11 @@ import { DateInput } from '@mantine/dates';
 import { deleteLead } from '../actions/delete-lead';
 import { updateLead } from '../actions/update-lead';
 import { useState } from 'react';
+import { usePathname } from 'next/navigation';
 
 export default function EditLeadButton({leadId, stage, engaged, last_contacted}: {leadId: number, stage: number, engaged: boolean, last_contacted: Date}) {
+  const pathname = usePathname();
+  
   const [deleteModalOpened, { open: openDeleteModal, close: closeDeleteModal }] = useDisclosure(false);
   const [updateModalOpened, { open: openUpdateModal, close: closeUpdateModal }] = useDisclosure(false);
   const [engagedValue, setEngagedValue] = useState(engaged ? 'Yes' : 'No');
@@ -18,12 +21,12 @@ export default function EditLeadButton({leadId, stage, engaged, last_contacted}:
   });
 
   const handleDelete = () => {
-    deleteLead(leadId);
+    deleteLead(pathname, leadId);
     closeDeleteModal();
   }
 
   const handleUpdate = () => {
-    updateLead(leadId, form.values);
+    updateLead(pathname, leadId, form.values);
     closeUpdateModal();
     form.reset();
   }
@@ -31,7 +34,7 @@ export default function EditLeadButton({leadId, stage, engaged, last_contacted}:
   return (
     <>
       <Modal opened={updateModalOpened} onClose={closeUpdateModal} title="Update Lead">
-        <form onSubmit={handleUpdate}>
+        <form onSubmit={form.onSubmit(handleUpdate)}>
           <NumberInput
             {...form.getInputProps('stage')}
             mt="xs"

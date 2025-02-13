@@ -9,7 +9,10 @@ import EditLeadButton from './edit-lead-button';
 
 export default function LeadsTable ({ leads }: { leads: LeadInfo[] }) {
   return (
-    <>
+    <Stack gap="xs">
+      <Text c="dimmed" size="xs">
+        Showing 1-10 of {leads.length} leads
+      </Text>
       <Table withTableBorder>
         <Table.Thead>
           <Table.Tr>
@@ -41,7 +44,7 @@ export default function LeadsTable ({ leads }: { leads: LeadInfo[] }) {
                 {
                   lead.engaged  
                   ? <Badge radius="sm" leftSection={<IconCircleCheck size={12} />}>Engaged</Badge>
-                  : <Badge radius="sm" leftSection={<IconClockHour4 size={12} />}>Not Engaged</Badge>
+                  : <Badge radius="sm" leftSection={<IconClockHour4 size={12} />}  color="gray" >Not Engaged</Badge>
                 }
               </Table.Td>
               <Table.Td>{lead.last_contacted}</Table.Td>
@@ -57,7 +60,7 @@ export default function LeadsTable ({ leads }: { leads: LeadInfo[] }) {
           ))}
         </Table.Tbody>
       </Table>
-    </>
+    </Stack>
   );
 }
 

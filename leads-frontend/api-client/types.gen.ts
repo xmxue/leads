@@ -49,9 +49,23 @@ export type RootGetResponses = {
 export type ListLeadsLeadsGetData = {
     body?: never;
     path?: never;
-    query?: never;
+    query?: {
+        sort_by?: 'stage';
+        sort_order?: 'asc' | 'desc';
+        secondary_sort_by?: 'last_contacted';
+        secondary_sort_order?: 'asc' | 'desc';
+    };
     url: '/leads/';
 };
+
+export type ListLeadsLeadsGetErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type ListLeadsLeadsGetError = ListLeadsLeadsGetErrors[keyof ListLeadsLeadsGetErrors];
 
 export type ListLeadsLeadsGetResponses = {
     /**

@@ -1,7 +1,7 @@
 from datetime import date
-from fastapi import APIRouter
+from fastapi import APIRouter, Query
 from pydantic import BaseModel
-from sqlmodel import Session, select
+from sqlmodel import Session, select, desc
 from app.db import engine, Lead
 
 router = APIRouter()
@@ -17,11 +17,28 @@ class LeadInfo(BaseModel):
 
 
 @router.get("/")
-async def list_leads() -> list[LeadInfo]:
+async def list_leads(
+    sort_by: str = Query(None, enum=["stage"]),
+    sort_order: str = Query(None, enum=["asc", "desc"]),
+    secondary_sort_by: str = Query(None, enum=["last_contacted"]),
+    secondary_sort_order: str = Query(None, enum=["asc", "desc"]),
+) -> list[LeadInfo]:
     with Session(engine) as session:
-        statement = select(Lead)
-        results = session.exec(statement)
-        data = results.all()
+        query = select(Lead)
+        if sort_by:
+            if sort_order == "asc":
+              query = query.order_by(getattr(Lead, sort_by))
+            else:
+              query = query.order_by(desc(getattr(Lead, sort_by)))
+        
+        if secondary_sort_by:
+            if secondary_sort_order == "asc":
+              query = query.order_by(getattr(Lead, secondary_sort_by))
+            else:
+              query = query.order_by(desc(getattr(Lead, secondary_sort_by)))
+
+        data = session.exec(query.order_by(desc(Lead.created_at))).all()
+
 
     return [LeadInfo(id=lead.id, name=lead.name, email=lead.email, company=lead.company, stage=lead.stage, engaged=lead.engaged, last_contacted=lead.last_contacted) for lead in data]
 

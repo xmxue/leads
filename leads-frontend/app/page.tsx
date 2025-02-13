@@ -2,13 +2,32 @@ import LeadsTable from "./components/leads-table";
 import LeadsPagination from "./components/leads-pagination";
 import AddLeadButton from "./components/add-lead-button";
 import SearchInput from "./components/search-input";
-import SortButton from "./components/sort-button";
 import { listLeadsLeadsGet } from "@/api-client";
-import { Stack, Group, Button, Title, Text } from '@mantine/core';
+import { Stack, Group, Button, Title} from '@mantine/core';
 import { IconCircleArrowDown } from '@tabler/icons-react';
+import SortButton from "./components/sort-button";
 
-export default async function Home() {
-  const { data } = await listLeadsLeadsGet() ?? [];
+interface HomeProps {
+  sort_order: string | undefined;
+  secondary_sort_order: string | undefined;
+}
+
+export default async function Home({ searchParams }: { searchParams: HomeProps }) {
+  const { sort_order, secondary_sort_order } = await searchParams;
+  const sort_by = sort_order !== undefined ? "stage" : undefined;
+  const secondary_sort_by = secondary_sort_order !== undefined ? "last_contacted" : undefined;
+
+  console.log(sort_order, secondary_sort_order);
+  console.log(sort_by, secondary_sort_by);
+  const { data } =
+    (await listLeadsLeadsGet({
+      query: {
+        sort_by: sort_by,
+        sort_order: sort_order as "desc" | "asc" | undefined,
+        secondary_sort_by: secondary_sort_by,
+        secondary_sort_order: secondary_sort_order as "desc" | "asc" | undefined,
+      },
+    })) ?? [];
   const leads = data ?? [];
   
   return (
@@ -24,14 +43,12 @@ export default async function Home() {
       </Group>
       <Group>
         <SearchInput/>
-        <SortButton/>
+        <SortButton
+          sort_order={sort_order}
+          secondary_sort_order={secondary_sort_order}
+        />
       </Group>
-      <Stack gap="xs">
-        <Text c="dimmed" size="xs">
-          Showing 1-10 of {leads.length} leads
-        </Text>
-        <LeadsTable leads={leads}/>
-      </Stack>
+      <LeadsTable leads={leads} />
       <Group justify="center">
         <LeadsPagination total={leads.length}/>
       </Group>
