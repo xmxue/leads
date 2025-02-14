@@ -162,5 +162,5 @@ export type UpdateLeadLeadsLeadIdPatchResponses = {
 };
 
 export type ClientOptions = {
-    baseUrl: 'http://localhost:8080' | (string & {});
+    baseURL: 'http://localhost:8080' | (string & {});
 };

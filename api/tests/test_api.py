@@ -1,19 +1,18 @@
 from fastapi.testclient import TestClient
 from unittest import TestCase
-from sqlmodel import SQLModel, create_engine
-from api.index import app
-from api.db import engine
+from sqlmodel import SQLModel
+from api.main import app
+from api.utils import engine
 
 client = TestClient(app)
 
-
-class TestApp(TestCase):
+class TestAPI(TestCase):
     def setUp(self):
         SQLModel.metadata.drop_all(engine)
         SQLModel.metadata.create_all(engine)
 
 
-    def test_app(self):
+    def test_api(self):
         response = client.post("/leads/", json={
             "name": "Steve Jobs",
             "email": "sj@apple.com",
