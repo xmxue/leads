@@ -9,10 +9,6 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
-    defaults:
-      run:
-        working-directory: ./leads-backend
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -21,7 +17,7 @@ jobs:
         uses: cashapp/activate-hermit@v1
 
       - name: Start services with Docker Compose
-        run: make start-stack
+        run: make db-start
 
       - name: Install dependencies
         run: |
@@ -33,4 +29,4 @@ jobs:
           pytest --disable-warnings --maxfail=3
 
       - name: Stop Docker Compose services
-        run: make stop-stack
+        run: make db-stop

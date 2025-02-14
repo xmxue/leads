@@ -4,8 +4,8 @@ import '@mantine/dates/styles.css';
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import React from 'react';
-import { ColorSchemeScript, mantineHtmlProps, Container } from '@mantine/core';
-import { ThemeProvider } from '@/components/theme-provider';
+import { ColorSchemeScript, mantineHtmlProps, Container, MantineProvider } from '@mantine/core';
+import { theme } from '@/app/theme';
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -35,9 +35,9 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <ThemeProvider>
-          <Container size="responsive" mt={'xl'}>{children}</Container>
-        </ThemeProvider>
+        <MantineProvider theme={theme}>
+          <Container size="lg" mt={'xl'}>{children}</Container>
+        </MantineProvider>
       </body>
     </html>
   );
