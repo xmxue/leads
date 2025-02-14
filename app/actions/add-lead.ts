@@ -30,12 +30,12 @@ export async function addLead(path: string, formData: unknown) {
     }
   }).then(() => {
     console.log('Lead added');
-    revalidatePath(path);
+    // revalidatePath(path);
   }).catch((error) => {
     console.error('Error adding lead', error);
   }).finally(() => {
     console.log('Add lead complete');
   });
 
-  // revalidatePath(path);
+  revalidatePath(path);
 }
