@@ -9,9 +9,9 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
-    # defaults:
-    #   run:
-    #     working-directory: leads_backend
+    defaults:
+      run:
+        working-directory: ./leads-backend
 
     steps:
       - name: Checkout repository
