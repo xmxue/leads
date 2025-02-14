@@ -37,14 +37,14 @@ export type ValidationError = {
     type: string;
 };
 
-export type RootGetData = {
+export type HealthCheckHealthGetData = {
     body?: never;
     path?: never;
     query?: never;
-    url: '/';
+    url: '/health';
 };
 
-export type RootGetResponses = {
+export type HealthCheckHealthGetResponses = {
     /**
      * Successful Response
      */
