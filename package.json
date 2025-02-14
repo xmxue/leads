@@ -15,6 +15,7 @@
     "generate-client": "openapi-ts"
   },
   "dependencies": {
+    "@hey-api/client-axios": "^0.6.1",
     "@hey-api/client-fetch": "^0.8.1",
     "@mantine/core": "^7.16.3",
     "@mantine/dates": "^7.16.3",

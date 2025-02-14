@@ -2,7 +2,7 @@ import LeadsTable from "./components/leads-table";
 import LeadsPagination from "./components/leads-pagination";
 import AddLeadButton from "./components/add-lead-button";
 import SearchInput from "./components/search-input";
-import { listLeadsLeadsGet } from "@/api-client";
+import { listLeadsApiLeadsGet } from "@/api-client";
 import { Stack, Group, Button, Title} from '@mantine/core';
 import { IconCircleArrowDown } from '@tabler/icons-react';
 import SortButton from "./components/sort-button";
@@ -20,7 +20,7 @@ export default async function Home({ searchParams }: { searchParams: Promise<Sea
   const secondary_sort_by = secondary_sort_order !== undefined ? "last_contacted" : undefined;
 
   const response =
-    (await listLeadsLeadsGet({
+    (await listLeadsApiLeadsGet({
       query: {
         page: page,
         search: search,
