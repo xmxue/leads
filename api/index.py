@@ -2,10 +2,11 @@ from io import BytesIO
 from fastapi import FastAPI, Request, Response
 from fastapi.middleware.cors import CORSMiddleware
 from sqlmodel import SQLModel
-from app.router import router
-from app.db import create_db_and_tables
+from api.router import router
+from api.db import create_db_and_tables
 from starlette.middleware.base import BaseHTTPMiddleware
 from starlette.responses import JSONResponse
+from starlette.datastructures import MutableHeaders
 import logging
 
 # Set up logging
@@ -23,8 +24,15 @@ class LogRequestResponseMiddleware(BaseHTTPMiddleware):
         # Log request headers and body
         request_body = await request.body()
         logger.info(f"Request URL: {request.url}")
-        logger.info(f"Request Headers: {request.headers}")
         logger.info(f"Request Body: {request_body.decode('utf-8')}")
+
+        
+        # if request headers does not include content-type, set it to application/json
+        headers = MutableHeaders(request.headers)
+        headers["content-type"] = "application/json"
+        headers["content-length"] = str(len(request_body))
+        request._headers = headers
+        logger.info(f"Request Headers: {request.headers}")
 
         # Call the next middleware or the route handler
         response = await call_next(request)

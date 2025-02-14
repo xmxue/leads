@@ -1,9 +1,14 @@
 {
-  "name": "leads-frontend",
+  "name": "leads",
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack",
+    "fastapi-dev": "pip3 install -r requirements.txt && python3 -m uvicorn api.index:app --reload --port 8080",
+    "next-dev": "next dev",
+    "dev": "concurrently \"npm run next-dev\" \"npm run fastapi-dev\"",
+    "db": "docker compose up -d",
+    "db-down": "docker compose down",
+    "db-nuke": "docker compose rm -f -s -v db && docker volume rm leads-backend_pg_data",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
