@@ -19,7 +19,7 @@ jobs:
           python-version: "3.12"
 
       - name: Start services with Docker Compose
-        run: make start-stack
+        run: make -C leads-backend start-stack
 
       - name: Install dependencies
         run: |
@@ -31,4 +31,4 @@ jobs:
           pytest --disable-warnings --maxfail=3
 
       - name: Stop Docker Compose services
-        run: make stop-stack
+        run: make -C leads-backend stop-stack

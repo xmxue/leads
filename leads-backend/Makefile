@@ -1,5 +1,3 @@
-SHELL=/bin/bash
-
 start-stack:
 	@docker-compose up -d
 
