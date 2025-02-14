@@ -1,15 +1,17 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  // rewrites: async () => {
-  //   console.log("process.env.NODE_ENV", process.env.NODE_ENV);
-  //   return [
-  //     {
-  //       source: "/api/leads/:path*",
-  //       destination: "http://localhost:8080/api/leads/", // Proxy to Backend  Server  (http://localhost:8080)
-  //     },
-  //   ];
-  // },
+  rewrites: async () => {
+    return [
+      {
+        source: "/api/:path*",
+        destination:
+          process.env.NODE_ENV === "development"
+            ? "http://127.0.0.1:8000/api/:path*"
+            : "/api/",
+      },
+    ]
+  }
 };
 
 export default nextConfig;
