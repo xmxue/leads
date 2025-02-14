@@ -17,13 +17,13 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: "3.12"
+      - name: Init Hermit
+        uses: cashapp/activate-hermit@v1
 
-      - name: Debug Directory Structure
-        run: ls -R
+      # - name: Set up Python
+      #   uses: actions/setup-python@v4
+      #   with:
+      #     python-version: "3.12"
 
       - name: Start services with Docker Compose
         run: make start-stack
