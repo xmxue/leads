@@ -20,6 +20,8 @@ export async function addLead(path: string, formData: unknown) {
 
   const data = parsedData.data;
 
+  console.log('data', data);
+
   createLeadApiLeadsPost({ 
     body: {
       name: data.name,
@@ -27,6 +29,7 @@ export async function addLead(path: string, formData: unknown) {
       company: data.company,
     }
   }).then(() => {
+    console.log('Lead added');
     revalidatePath(path);
   }).catch((error) => {
     console.error('Error adding lead', error);
