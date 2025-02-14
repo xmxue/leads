@@ -4,7 +4,7 @@ from pydantic import BaseModel
 from sqlmodel import Session, select, desc, col, or_, func
 from api.db import engine, Lead
 
-router = APIRouter()
+router = APIRouter(prefix="/leads", tags=["leads"])
 
 class LeadInfo(BaseModel):
     id: int

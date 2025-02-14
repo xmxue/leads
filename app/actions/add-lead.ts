@@ -1,5 +1,5 @@
 'use server';
-import { createLeadLeadsPost } from "@/api-client/sdk.gen";
+import { createLeadApiLeadsPost } from "@/api-client/sdk.gen";
 import { revalidatePath } from "next/cache";
 import { z } from 'zod';
 
@@ -20,12 +20,22 @@ export async function addLead(path: string, formData: unknown) {
 
   const data = parsedData.data;
 
-  await createLeadLeadsPost({ 
+  console.log('data', data);
+
+  createLeadApiLeadsPost({ 
     body: {
       name: data.name,
       email: data.email,
       company: data.company,
     }
+  }).then((response) => {
+    console.log('Lead added');
+    console.log('response', response);
+    // revalidatePath(path);
+  }).catch((error) => {
+    console.error('Error adding lead', error);
+  }).finally(() => {
+    console.log('Add lead complete');
   });
 
   revalidatePath(path);
