@@ -12,9 +12,12 @@ db-stop:
 
 db-seed:
 	@read -p "Enter number of leads to seed: " num; \
-	python api/db_seed.py $$num
+	python api/seed.py $$num
 
 db-reset:
 	@docker compose rm -f -s -v db
 	@docker volume rm leads_pg_data
 	@docker compose up -d db
+
+test:
+	@python -m pytest api/tests/ -v

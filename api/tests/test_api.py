@@ -1,8 +1,8 @@
 from fastapi.testclient import TestClient
 from unittest import TestCase
-from sqlmodel import SQLModel, create_engine
+from sqlmodel import SQLModel
 from api.main import app
-from api.db.utils import engine
+from api.utils import engine
 
 client = TestClient(app)
 

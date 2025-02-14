@@ -2,8 +2,8 @@ from datetime import date
 from fastapi import APIRouter, Query
 from pydantic import BaseModel
 from sqlmodel import Session, select, desc, col, or_, func
-from api.db.models import Lead
-from api.db.utils import engine
+from .models import Lead
+from .utils import engine
 
 router = APIRouter()
 

@@ -1,8 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from sqlmodel import SQLModel
-from api.routers.leads import router
-from api.db.utils import create_db_and_tables
+from api.leads import router
+from api.utils import create_db_and_tables
 
 create_db_and_tables()
 

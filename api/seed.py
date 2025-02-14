@@ -1,6 +1,6 @@
 import argparse
 from sqlmodel import Session, create_engine
-from db.models import Lead
+from models import Lead
 from faker import Faker
 
 parser = argparse.ArgumentParser(description="Example script")
