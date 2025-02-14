@@ -1,15 +1,17 @@
 import argparse
 from sqlmodel import Session, create_engine
 from models import Lead
+from utils import create_db_and_tables
 from faker import Faker
 
 parser = argparse.ArgumentParser(description="Example script")
 parser.add_argument("num", type=int, default=15, help="Number of leads to seed")
 args = parser.parse_args()
 
-# Setup
 fake = Faker()
+
 engine = create_engine("postgresql://postgres:password@localhost:5432/postgres")  # Replace with your DB URL
+create_db_and_tables()
 
 def create_random_leads(num: int):
     with Session(engine) as session:
