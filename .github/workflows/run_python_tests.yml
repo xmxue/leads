@@ -1,4 +1,4 @@
-name: Run FastAPI Tests
+name: Run Python Tests
 
 on:
   pull_request:
@@ -19,8 +19,7 @@ jobs:
           python-version: "3.12"
 
       - name: Start services with Docker Compose
-        run: |
-          make start-stack
+        run: make start-stack
 
       - name: Install dependencies
         run: |
@@ -32,5 +31,4 @@ jobs:
           pytest --disable-warnings --maxfail=3
 
       - name: Stop Docker Compose services
-        run: |
-          make stop-stack
+        run: make stop-stack
