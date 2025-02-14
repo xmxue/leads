@@ -28,8 +28,9 @@ export async function addLead(path: string, formData: unknown) {
       email: data.email,
       company: data.company,
     }
-  }).then(() => {
+  }).then((response) => {
     console.log('Lead added');
+    console.log('response', response);
     // revalidatePath(path);
   }).catch((error) => {
     console.error('Error adding lead', error);
