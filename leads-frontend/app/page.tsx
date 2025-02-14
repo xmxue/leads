@@ -7,14 +7,14 @@ import { Stack, Group, Button, Title} from '@mantine/core';
 import { IconCircleArrowDown } from '@tabler/icons-react';
 import SortButton from "./components/sort-button";
 
-interface HomeProps {
+interface SearchParams {
   page: number;
   search: string | undefined;
   sort_order: string | undefined;
   secondary_sort_order: string | undefined;
 }
 
-export default async function Home({ searchParams }: { searchParams: HomeProps }) {
+export default async function Home({ searchParams }: { searchParams: Promise<SearchParams> }) {
   const { page, search, sort_order, secondary_sort_order } = await searchParams;
   const sort_by = sort_order !== undefined ? "stage" : undefined;
   const secondary_sort_by = secondary_sort_order !== undefined ? "last_contacted" : undefined;
