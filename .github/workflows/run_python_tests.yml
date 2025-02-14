@@ -22,6 +22,9 @@ jobs:
         with:
           python-version: "3.12"
 
+      - name: Debug Directory Structure
+        run: ls -R
+
       - name: Start services with Docker Compose
         run: make start-stack
 
