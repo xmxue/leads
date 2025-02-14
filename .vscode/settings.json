@@ -12,9 +12,6 @@
     "source.fixAll.eslint": "always"
   },
   "python.defaultInterpreterPath": "./bin/python",
-  "python.testing.pytestArgs": [
-    "leads-backend"
-  ],
   "python.testing.unittestEnabled": false,
   "python.testing.pytestEnabled": true,
 }

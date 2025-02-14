@@ -2,7 +2,7 @@ from io import BytesIO
 from fastapi import FastAPI, Request, Response
 from fastapi.middleware.cors import CORSMiddleware
 from sqlmodel import SQLModel
-from api.router import router
+from api.leads_router import router
 from api.db import create_db_and_tables
 from starlette.middleware.base import BaseHTTPMiddleware
 from starlette.responses import JSONResponse
