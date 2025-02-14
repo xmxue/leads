@@ -1,5 +1,5 @@
 from typing import Annotated
-
+import os
 from fastapi import Depends, FastAPI, HTTPException, Query
 from sqlmodel import Field, Session, SQLModel, create_engine, select
 from datetime import datetime, date
@@ -17,5 +17,7 @@ class Lead(SQLModel, table=True):
     updated_at: datetime = Field(default_factory=lambda: datetime.now())
 
 
-db_url = "postgresql://postgres:password@localhost:5432/postgres"
-engine = create_engine(db_url)
+engine = create_engine(os.getenv("DATABASE_URL", "postgresql://postgres:password@localhost:5432/test"))
+
+def create_db_and_tables():
+  SQLModel.metadata.create_all(engine)

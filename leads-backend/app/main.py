@@ -1,14 +1,14 @@
 from fastapi import FastAPI
 from sqlmodel import SQLModel
 from app.router import router
-from app.db import engine
+from app.db import create_db_and_tables
+
+create_db_and_tables()
 
 app = FastAPI()
 
-SQLModel.metadata.create_all(engine)
-
-@app.get("/")
-async def root():
-    return {"message": "Hello World"}
+@app.get("/health")
+def health_check():
+    return {"status": "ok"}
 
 app.include_router(router, prefix="/leads", tags=["leads"])
