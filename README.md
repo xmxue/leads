@@ -50,6 +50,10 @@ kill servers
 
 Go to http://localhost:3000 and play around.
 
-## HTTP requests to the backend
+## Backend server client
 
 Generated the backend server client in Typescript using `openapi-ts`.
+
+## UI lib
+
+[Mantine](https://mantine.dev/)
