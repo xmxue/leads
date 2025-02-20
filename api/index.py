@@ -18,4 +18,4 @@ app.add_middleware(
 def health_check():
     return {"status": "ok"}
 
-app.include_router(router, prefix="/leads", tags=["leads"])
+app.include_router(router, prefix="/api/leads", tags=["leads"])
