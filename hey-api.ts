@@ -9,5 +9,5 @@ export const createClientConfig: CreateClientConfig = (config) => ({
   ...config,
   baseURL: process.env.VERCEL_ENV 
     ? `https://${process.env.VERCEL_URL}` 
-    : 'http://localhost:8080'
+    : ''
 });
