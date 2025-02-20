@@ -51,7 +51,7 @@ export type HealthCheckHealthGetResponses = {
     200: unknown;
 };
 
-export type ListLeadsLeadsGetData = {
+export type ListLeadsApiLeadsGetData = {
     body?: never;
     path?: never;
     query?: {
@@ -63,98 +63,98 @@ export type ListLeadsLeadsGetData = {
         secondary_sort_by?: 'last_contacted';
         secondary_sort_order?: 'asc' | 'desc';
     };
-    url: '/leads/';
+    url: '/api/leads/';
 };
 
-export type ListLeadsLeadsGetErrors = {
+export type ListLeadsApiLeadsGetErrors = {
     /**
      * Validation Error
      */
     422: HttpValidationError;
 };
 
-export type ListLeadsLeadsGetError = ListLeadsLeadsGetErrors[keyof ListLeadsLeadsGetErrors];
+export type ListLeadsApiLeadsGetError = ListLeadsApiLeadsGetErrors[keyof ListLeadsApiLeadsGetErrors];
 
-export type ListLeadsLeadsGetResponses = {
+export type ListLeadsApiLeadsGetResponses = {
     /**
      * Successful Response
      */
     200: ListLeadsResponse;
 };
 
-export type ListLeadsLeadsGetResponse = ListLeadsLeadsGetResponses[keyof ListLeadsLeadsGetResponses];
+export type ListLeadsApiLeadsGetResponse = ListLeadsApiLeadsGetResponses[keyof ListLeadsApiLeadsGetResponses];
 
-export type CreateLeadLeadsPostData = {
+export type CreateLeadApiLeadsPostData = {
     body: LeadCreateInfo;
     path?: never;
     query?: never;
-    url: '/leads/';
+    url: '/api/leads/';
 };
 
-export type CreateLeadLeadsPostErrors = {
+export type CreateLeadApiLeadsPostErrors = {
     /**
      * Validation Error
      */
     422: HttpValidationError;
 };
 
-export type CreateLeadLeadsPostError = CreateLeadLeadsPostErrors[keyof CreateLeadLeadsPostErrors];
+export type CreateLeadApiLeadsPostError = CreateLeadApiLeadsPostErrors[keyof CreateLeadApiLeadsPostErrors];
 
-export type CreateLeadLeadsPostResponses = {
+export type CreateLeadApiLeadsPostResponses = {
     /**
      * Successful Response
      */
     201: number;
 };
 
-export type CreateLeadLeadsPostResponse = CreateLeadLeadsPostResponses[keyof CreateLeadLeadsPostResponses];
+export type CreateLeadApiLeadsPostResponse = CreateLeadApiLeadsPostResponses[keyof CreateLeadApiLeadsPostResponses];
 
-export type DeleteLeadLeadsLeadIdDeleteData = {
+export type DeleteLeadApiLeadsLeadIdDeleteData = {
     body?: never;
     path: {
         lead_id: number;
     };
     query?: never;
-    url: '/leads/{lead_id}';
+    url: '/api/leads/{lead_id}';
 };
 
-export type DeleteLeadLeadsLeadIdDeleteErrors = {
+export type DeleteLeadApiLeadsLeadIdDeleteErrors = {
     /**
      * Validation Error
      */
     422: HttpValidationError;
 };
 
-export type DeleteLeadLeadsLeadIdDeleteError = DeleteLeadLeadsLeadIdDeleteErrors[keyof DeleteLeadLeadsLeadIdDeleteErrors];
+export type DeleteLeadApiLeadsLeadIdDeleteError = DeleteLeadApiLeadsLeadIdDeleteErrors[keyof DeleteLeadApiLeadsLeadIdDeleteErrors];
 
-export type DeleteLeadLeadsLeadIdDeleteResponses = {
+export type DeleteLeadApiLeadsLeadIdDeleteResponses = {
     /**
      * Successful Response
      */
     204: void;
 };
 
-export type DeleteLeadLeadsLeadIdDeleteResponse = DeleteLeadLeadsLeadIdDeleteResponses[keyof DeleteLeadLeadsLeadIdDeleteResponses];
+export type DeleteLeadApiLeadsLeadIdDeleteResponse = DeleteLeadApiLeadsLeadIdDeleteResponses[keyof DeleteLeadApiLeadsLeadIdDeleteResponses];
 
-export type UpdateLeadLeadsLeadIdPatchData = {
+export type UpdateLeadApiLeadsLeadIdPatchData = {
     body: LeadUpdateInfo;
     path: {
         lead_id: number;
     };
     query?: never;
-    url: '/leads/{lead_id}';
+    url: '/api/leads/{lead_id}';
 };
 
-export type UpdateLeadLeadsLeadIdPatchErrors = {
+export type UpdateLeadApiLeadsLeadIdPatchErrors = {
     /**
      * Validation Error
      */
     422: HttpValidationError;
 };
 
-export type UpdateLeadLeadsLeadIdPatchError = UpdateLeadLeadsLeadIdPatchErrors[keyof UpdateLeadLeadsLeadIdPatchErrors];
+export type UpdateLeadApiLeadsLeadIdPatchError = UpdateLeadApiLeadsLeadIdPatchErrors[keyof UpdateLeadApiLeadsLeadIdPatchErrors];
 
-export type UpdateLeadLeadsLeadIdPatchResponses = {
+export type UpdateLeadApiLeadsLeadIdPatchResponses = {
     /**
      * Successful Response
      */
@@ -162,5 +162,5 @@ export type UpdateLeadLeadsLeadIdPatchResponses = {
 };
 
 export type ClientOptions = {
-    baseURL: 'http://localhost:8080' | (string & {});
+    baseURL: `${string}://openapi.json` | (string & {});
 };

@@ -1,7 +1,8 @@
+# import syspath
 import argparse
 from sqlmodel import Session, create_engine
-from models import Lead
-from utils import create_db_and_tables
+from api.models import Lead
+from api.utils import create_db_and_tables
 from faker import Faker
 
 parser = argparse.ArgumentParser(description="Example script")

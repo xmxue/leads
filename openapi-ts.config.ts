@@ -1,7 +1,12 @@
 import { defineConfig } from '@hey-api/openapi-ts';
 
 export default defineConfig({
-  input: 'http://localhost:8080/openapi.json',
+  input: 'openapi.json',
   output: 'api-client',
-  plugins: ['@hey-api/client-axios'],
+  plugins: [
+    {
+      name: '@hey-api/client-axios',
+      runtimeConfigPath: './hey-api.ts', 
+    },
+  ],
 });
