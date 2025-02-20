@@ -7,9 +7,7 @@ console.log('process.env.VERCEL_BRANCH_URL=', process.env.VERCEL_BRANCH_URL);
 
 export const createClientConfig: CreateClientConfig = (config) => ({
   ...config,
-  baseURL:  process.env.VERCEL_ENV === 'production' 
-    ? `https://${process.env.VERCEL_URL}`
-    : process.env.VERCEL_ENV === 'preview' 
-    ? `https://${process.env.VERCEL_BRANCH_URL}` 
+  baseURL: process.env.VERCEL_ENV 
+    ? `https://${process.env.VERCEL_URL}` 
     : 'http://localhost:8080'
 });
