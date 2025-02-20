@@ -9,9 +9,9 @@ sql:
     queries: "sql/query.sql"
     engine: "postgresql"
     codegen:
-      - out: "leads"
+      - out: "api/db"
         plugin: py
         options:
-          package: "leads"
+          package: "db"
           emit_sync_querier: true
           emit_async_querier: true
