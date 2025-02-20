@@ -1,5 +1,6 @@
 'use server';
-import { createLeadApiLeadsPost } from "@/api-client/sdk.gen";
+import { createLeadApiLeadsPost } from "@/api-client";
+import { client } from "@/api-client/client.gen";
 import { revalidatePath } from "next/cache";
 import { z } from 'zod';
 
@@ -20,6 +21,8 @@ export async function addLead(path: string, formData: unknown) {
 
   const data = parsedData.data;
 
+  console.log('data', data);
+  console.log('client config', client.getConfig());
   createLeadApiLeadsPost({ 
     body: {
       name: data.name,
