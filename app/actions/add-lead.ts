@@ -20,12 +20,18 @@ export async function addLead(path: string, formData: unknown) {
 
   const data = parsedData.data;
 
-  await createLeadApiLeadsPost({ 
+  createLeadApiLeadsPost({ 
     body: {
       name: data.name,
       email: data.email,
       company: data.company,
     }
+  }).then(() => {
+    console.log('Lead added');
+  }).catch((error) => {
+    console.error('Error adding lead', error);
+  }).finally(() => {
+    console.log('Finally block');
   });
 
   revalidatePath(path);
